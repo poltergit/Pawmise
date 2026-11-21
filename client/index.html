@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B1A33">
+<title>Pawmise</title>
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="tailwind.css">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head>
+<body>
+<main class="px-5 pt-5 max-w-md mx-auto pb-36">
+<header class="flex items-start justify-between mb-6">
+<h1 class="hand text-5xl leading-none relative -rotate-2">Pawmise<svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 80 8"><path d="M1 5C14 1 22 8 38 4S66 2 79 5" fill="none" stroke="#2F80ED" stroke-width="3" stroke-linecap="round"/></svg></h1>
+<div class="flex items-start gap-3"><button id="bell" class="hand text-lg text-sky underline mt-1">notify me</button><div class="card px-3 py-1 rotate-3 text-center"><div class="hand text-base leading-none">streak</div><b id="streak" class="text-2xl leading-none">0</b></div></div>
+</header>
+
+<section id="port" class="relative h-[300px] overflow-hidden flex items-center justify-center -rotate-1">
+<div id="lv" class="card absolute top-3 left-3 px-3 py-1 -rotate-3 hand text-xl z-20"></div>
+<button id="rr" aria-label="new look" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-paper text-ink font-extrabold z-20">↻</button>
+<div class="bob relative z-10"><div id="pet" class="cursor-pointer"></div></div>
+<div id="say" class="absolute bottom-3 inset-x-0 text-center hand text-xl text-sky z-20"></div>
+</section>
+
+<section class="mt-7">
+<div class="flex items-end justify-between mb-1.5"><button id="nm" class="hand text-3xl leading-none underline decoration-wavy decoration-ocean underline-offset-4"></button><span id="xp" class="hand text-xl text-sky"></span></div>
+<div class="track"><div id="fill" class="fill" style="width:0"></div></div>
+</section>
+
+<section id="p-tasks" class="pn mt-9">
+<div class="flex items-baseline justify-between mb-3"><h2 class="hand text-3xl">today's mischief</h2><span id="cnt" class="hand text-xl text-sky"></span></div>
+<div id="tasks" class="flex flex-col gap-3"></div>
+<form id="addf" class="flex gap-2 mt-5"><input id="ni" maxlength="32" placeholder="add a task of your own…" class="flex-1 bg-deep border-2 border-sky rounded-xl px-3 py-2 text-sm outline-none placeholder:text-sky/60"><input id="ne" type="number" min="5" max="100" value="15" aria-label="exp" class="w-16 bg-deep border-2 border-sky rounded-xl px-2 py-2 text-sm outline-none"><button class="bg-ocean text-paper font-extrabold px-4 rounded-xl">+</button></form>
+</section>
+
+<section id="p-q" class="pn hidden mt-9">
+<div class="flex items-baseline justify-between mb-4"><h2 class="hand text-3xl">sealed answers</h2><button id="sw" class="hand text-lg text-sky underline"></button></div>
+<div class="card tape px-4 py-4 mb-4 tilt-a"><p id="qp" class="hand text-2xl leading-7"></p></div>
+<div id="slots" class="flex flex-col gap-3"></div>
+<button id="brk" class="hidden w-full mt-5 bg-ocean text-paper font-extrabold py-3 rounded-2xl border-[3px] border-paper" style="box-shadow:4px 4px 0 #9CCBFF">break the seals · +25 exp</button>
+<button id="nxt" class="hidden w-full mt-4 hand text-xl text-sky">another question →</button>
+<button id="hb" class="w-full mt-3 hand text-xl text-sky">memory book ↓</button>
+<div id="book" class="hidden flex-col gap-3 mt-3"></div>
+</section>
+
+<section id="p-rw" class="pn hidden mt-9">
+<div class="flex items-baseline justify-between mb-3"><h2 class="hand text-3xl">the secret stash</h2><span class="hand text-xl text-sky"><b id="wal">0</b> exp to spend</span></div>
+<div id="rw" class="flex flex-col gap-3"></div>
+<form id="cf" class="flex gap-2 mt-5"><input id="cl" maxlength="40" placeholder="invent a coupon…" class="flex-1 min-w-0 bg-deep border-2 border-sky rounded-xl px-3 py-2 text-sm outline-none placeholder:text-sky/60"><input id="cc" type="number" min="10" max="1000" value="100" class="w-20 bg-deep border-2 border-sky rounded-xl px-2 py-2 text-sm outline-none"><button class="bg-ocean text-paper font-extrabold px-4 rounded-xl">+</button></form>
+<h3 class="hand text-3xl mt-9 mb-3">your stash</h3>
+<div id="st" class="flex flex-col gap-3"></div>
+</section>
+</main>
+
+<nav class="card fixed left-1/2 -translate-x-1/2 z-40 flex gap-1 p-1.5" style="bottom:calc(14px + env(safe-area-inset-bottom));border-radius:999px">
+<button data-t="tasks" class="nv on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg>tasks</button>
+<button data-t="q" class="nv"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>ask</button>
+<button data-t="rw" class="nv"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v3a2 2 0 000 4v3H3v-3a2 2 0 000-4z"/><path d="M14 8v10" stroke-dasharray="2 2"/></svg>stash</button>
+</nav>
+<div id="toast" class="fixed top-4 left-1/2 z-[75] bg-paper text-ink border-[3px] border-ink rounded-xl hand text-2xl px-5 py-1 opacity-0 pointer-events-none transition-all duration-300 -translate-y-3" style="transform:translate(-50%,-12px)"></div>
+
+<script>if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js'))</script>
+<script src="config.js"></script>
+<script src="app.js"></script></body></html>
