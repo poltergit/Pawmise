@@ -31,4 +31,10 @@ You only ever see your own answer box; your partner's shows `still writing…` o
 - **Install + offline shell:** `manifest.json` + `sw.js` (network-first shell cache). Add to home screen on Android/iOS. Note: icon is SVG; add 192/512 PNGs to the manifest if your browser wants them for the install prompt.
 - **Push pings:** `npx web-push generate-vapid-keys`, set `VAPID_*`, deploy, then each partner taps *notify me* once. You get pinged when your partner finishes a task, seals an answer or breaks the seals. iOS needs the app added to the home screen first.
 - **Editable tasks:** ✎ edits label + EXP, × deletes, any unfinished task. Finished tasks are locked.
+- **Evolution gallery:** preview every pet stage and reroll the current look.
+- **Task variety:** categories, daily/weekday/weekend/custom schedules, and optional partner approval.
+- **Weekly goals, streak freezes, pet care:** track the week, protect one streak gap, and maintain happiness/comfort.
+- **Memories:** add private notes, mood, photo URLs, anniversaries, and seasonal looks.
+- **Question categories and notification preferences:** choose the reflection style and which pushes you receive.
+- **Card collection:** collect 60 Golden Retriever cards in six themed sets, with ratings from 1 to 10, rarity weights, pity protection, level rewards, duplicates, and pawdust.
 - **Tests:** `cd server && npm test` (day/timezone/EXP/fallback-question logic).

@@ -21,3 +21,15 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.09;z-
 .nv{display:flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;font-weight:700;font-size:13px}.nv.on{background:#0B1A33;color:#E6F0FB}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body[data-theme="valentine"] #port{border-color:#FFB4C8;box-shadow:7px 7px 0 #D94F82}
+body[data-theme="halloween"] #port{border-color:#FFB65C;box-shadow:7px 7px 0 #B75C3D}
+body[data-theme="winter"] #port{border-color:#CDEEFF;box-shadow:7px 7px 0 #4E91C9}
+.dog-canvas{width:220px;height:220px;display:block;filter:drop-shadow(0 14px 10px rgba(0,0,0,.28))}
+#evolutions .dog-canvas{width:80px;height:80px}
+.card-filter{padding:5px 10px;border:2px solid #9CCBFF;border-radius:999px;font-family:Caveat,cursive;font-size:15px;white-space:nowrap}.card-filter.on{background:#0B1A33;color:#E6F0FB}
+.collect-card{position:relative;aspect-ratio:5/7;border-radius:14px;border:3px solid #0B1A33;padding:8px;overflow:hidden;text-align:left;box-shadow:4px 4px 0 #2F80ED;transform:rotate(-1deg)}.collect-card:nth-child(even){transform:rotate(1deg)}
+.collect-card.reveal-card{width:150px;box-shadow:7px 7px 0 #2F80ED;animation:cardDraw .55s cubic-bezier(.2,1.4,.5,1)}
+@keyframes cardDraw{from{transform:scale(.35) rotate(-14deg);opacity:0}to{transform:scale(1) rotate(-1deg);opacity:1}}
+.rarity-common{background:linear-gradient(155deg,#E6F0FB,#BFD4EA)}.rarity-uncommon{background:linear-gradient(155deg,#D9F6E9,#74AFA0)}.rarity-rare{background:linear-gradient(155deg,#D7ECFF,#74A9D8)}.rarity-epic{background:linear-gradient(155deg,#F1DCFA,#C58CBF)}.rarity-legendary{background:linear-gradient(155deg,#FFF1B5,#D8B45B)}.rarity-mythic{background:linear-gradient(155deg,#1D4F96,#D69A58);color:#fff}
+.collect-card .stars{letter-spacing:-1px;color:#FFE18A}.collect-card .paw-art{height:58%;display:grid;place-items:center;font-size:58px;border-radius:10px;background:rgba(255,255,255,.35);margin-bottom:5px}
+.collect-card.reveal-card .paw-art{font-size:72px}
