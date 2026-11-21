@@ -42,7 +42,10 @@ router.post('/tasks',w(async(q,s)=>{
   if(!label)return s.status(400).json({error:'label'});
   await Task.create({label,exp:expOf(q.body.exp),custom:true});send(s);
 }));
-router.delete('/tasks/:id',w(async(q,s)=>{await Task.deleteOne({_id:q.params.id});send(s)}));
+router.delete('/tasks/:id',w(async(q,s)=>{
+  await Task.deleteOne({_id:q.params.id,doneDay:{$ne:day()}});
+  send(s);
+}));
 router.post('/tasks/:id/complete',w(async(q,s)=>{
   const d=day(),by=q.slot,
     t=await Task.findOneAndUpdate({_id:q.params.id,doneDay:{$ne:d}},{doneDay:d,doneBy:by}); // atomic: no double EXP
@@ -59,8 +62,8 @@ router.post('/question/answer',w(async(q,s)=>{
   const i=q.slot,text=String(q.body.text||'').trim().slice(0,280);
   if(![0,1].includes(i)||!text)return s.status(400).json({error:'bad'});
   const qq=await question();
-  await Question.updateOne({_id:qq._id,revealed:false,['answers.'+i+'.sealed']:{$ne:true}},{$set:{['answers.'+i]:{text,sealed:true}}});
-  ping(q.slot,'sealed an answer');
+  const result=await Question.updateOne({_id:qq._id,revealed:false,['answers.'+i+'.sealed']:{$ne:true}},{$set:{['answers.'+i]:{text,sealed:true}}});
+  if(result.modifiedCount)ping(q.slot,'sealed an answer');
   send(s);
 }));
 router.post('/question/reveal',w(async(_,s)=>{
@@ -76,9 +79,9 @@ router.post('/question/reveal',w(async(_,s)=>{
 router.post('/question/next',rate({windowMs:36e5,limit:10}),w(async(_,s)=>{if((await question()).revealed)await fresh();send(s)}));
 router.post('/profile',w(async(q,s)=>{
   const c=await couple(),b=q.body;
-  if(b.petName)c.pet.name=String(b.petName).slice(0,14);
+  if(typeof b.petName==='string'&&b.petName.trim())c.pet.name=b.petName.trim().slice(0,14);
   if(b.reroll)c.pet.seed=Math.random()*1e9|0;
-  if(b.name)c.names.set(q.slot,String(b.name).slice(0,14));
+  if(typeof b.name==='string'&&b.name.trim())c.names.set(q.slot,b.name.trim().slice(0,14));
   await c.save();send(s);
 }));
 router.post('/coupons',w(async(q,s)=>{
@@ -99,6 +102,7 @@ router.post('/stash/:id/use',w(async(q,s)=>{await Redemption.updateOne({_id:q.pa
 router.patch('/tasks/:id',w(async(q,s)=>{
   const u={},label=String(q.body.label||'').trim().slice(0,32);
   if(label)u.label=label;if(q.body.exp!=null)u.exp=expOf(q.body.exp);
+  if(!Object.keys(u).length)return s.status(400).json({error:'bad'});
   await Task.updateOne({_id:q.params.id,doneDay:{$ne:day()}},u);send(s); // finished tasks are locked so EXP can't be gamed
 }));
 router.get('/push/key',(_,s)=>s.json({key:push.publicKey}));
