@@ -25,4 +25,9 @@ app.use('/api',(q,s,n)=>{
 });
 app.use('/api',require('./routes'));
 app.use((e,q,s,n)=>{console.error(e.message);s.status(e.name==='CastError'?400:500).json({error:'error'})});
-mongoose.connect(process.env.MONGODB_URI).then(()=>app.listen(process.env.PORT||8787,()=>console.log('pawmise api up'))).catch(e=>{console.error(e.message);process.exit(1)});
+mongoose.connect(process.env.MONGODB_URI).then(()=>app.listen(process.env.PORT||8787,()=>console.log('pawmise api up'))).catch(e=>{
+  if(e.code===8000)console.error('MongoDB authentication failed. Check MONGODB_URI username/password and Atlas database user permissions.');
+  else if(e.name==='MongoServerSelectionError')console.error('MongoDB is unreachable. Check the cluster status and Atlas Network Access IP allowlist.');
+  else console.error('MongoDB connection failed:',e.message);
+  process.exit(1);
+});
